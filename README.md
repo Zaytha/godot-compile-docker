@@ -10,8 +10,9 @@ The environment setup and linux build take place in a WSL docker contianer, whil
 
 
 ## Requirements
-This must be run on a Windows machine with WSL and docker (docker must be using linux containers) 
+This must be run on a Windows machine with WSL and docker (docker must be using linux containers).
 
+Your windows machine must have all the required packages for compiling with scons, as described on the [Compiling for Windows Godot Wiki](https://docs.godotengine.org/en/stable/contributing/development/compiling/compiling_for_windows.html)
 
 You must download the [Steamworks SDK](https://partner.steamgames.com/?ref=stebet.net) (which requires having a steamworks account) and place the contents of the zip file in the steam_sdk folder.
 After extration the setup should look like this:
