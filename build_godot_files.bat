@@ -77,11 +77,11 @@ pause
 
 REM Begin the build process
 echo ------------------------------ [2/4] Setting up Build Enviorment ------------------------------
-docker-compose up --build --abort-on-container-exit setup
+docker-compose up --build --abort-on-container-exit --exit-code-from setup setup
 
 echo ---------------------------------- [3/4] Starting Linux Build ---------------------------------
 REM run the dockerfile for linux build
-docker-compose up --build linux_build
+docker-compose up --build --abort-on-container-exit --exit-code-from linux_build linux_build
 echo -------------------------------------- Linux Build Finished -------------------------------------
 
 
