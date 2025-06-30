@@ -1,0 +1,5 @@
+godot_data/
+
+# Ignore the contnets of the steam_sdk folder, but keep the folder itself
+steam_sdk/*
+!steam_sdk/.gitkeep

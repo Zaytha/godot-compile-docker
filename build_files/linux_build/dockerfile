@@ -1,0 +1,38 @@
+FROM ubuntu:20.04
+# Ubuntu 20.04 EOL 31/05/2025
+# At the time of writing this is past that date, so you may need to update it in the future.
+
+# disable popups on install
+ARG DEBIAN_FRONTEND=noninteractive
+
+# We install scons through pip, as the ubuntu repositories only have 3.1.2, and godot 4.4 needs 4.0+
+RUN apt-get update && apt-get install -y \
+  build-essential \
+  python3 \
+  python3-pip \
+  libx11-dev \
+  libxcursor-dev \
+  libxinerama-dev \
+  libgl1-mesa-dev \
+  libglu1-mesa-dev \
+  libasound2-dev \
+  libpulse-dev \
+  libudev-dev \
+  libxi-dev \
+  libxrandr-dev \
+  libwayland-dev && \
+  pip3 install --upgrade scons
+
+# # Make sure scons uses python3
+# RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+
+## The core lines finds the max number of cores available minus 2, then divides it by 2 as there are going to be to scons jobs running
+## expoting the encyrption key sets it as an environment variable for scons
+## scons commands export the editor, debug template, and release template
+## The chmod bin file allows for the host user to edit the created files.
+
+CMD export SCRIPT_AES256_ENCRYPTION_KEY=$(cat /godot_data/godot.gdkey) && \
+    scons platform=linuxbsd tools=yes target=editor && \
+    scons platform=linuxbsd tools=no target=template_debug && \
+    scons platform=linuxbsd target=template_release production=yes && \
+    chmod -R a+rw bin
