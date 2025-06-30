@@ -2,6 +2,11 @@
 
 echo ------------------------------------- [1/4] Inital Setup --------------------------------------
 
+echo Makes sure you windows instance is setup for compiling Godot with scons, by having all the required packages as described in the Godot documentation.
+echo https://docs.godotengine.org/en/stable/contributing/development/compiling/compiling_for_windows.html
+echo (I don't have any way of chekcing that you've done this)
+pause
+
 REM Check if Docker is running
 docker info >nul 2>&1
 if %errorlevel% neq 0 (
@@ -89,6 +94,9 @@ cd godot_data\godot
 scons platform=windows tools=yes target=editor
 scons platform=windows tools=no target=template_debug
 scons platform=windows tools=no target=template_release production=yes
+REM Copy Steam shared library for Windows to bin
+xcopy /Y /E "modules\godotsteam\sdk\redistributable_bin\win64\*" "bin\"
+
 
 echo -------------------------------------- All Builds Finished --------------------------------------
 echo .
