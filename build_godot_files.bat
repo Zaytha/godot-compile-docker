@@ -19,7 +19,7 @@ echo Docker is running.
 echo ------------------------------
 
 REM Prompt for Godot and GodotSteam version with defaults
-set "GODOT_VERSION_DEFAULT=4.4-stable"
+set "GODOT_VERSION_DEFAULT=4.5-stable"
 echo What version of Godot would you like to use? (https://github.com/godotengine/godot)
 set /p GODOT_VERSION=Enter your version or press enter to use the default (%GODOT_VERSION_DEFAULT%):
 if "%GODOT_VERSION%"=="" set "GODOT_VERSION=%GODOT_VERSION_DEFAULT%"
