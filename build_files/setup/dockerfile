@@ -9,7 +9,7 @@ ARG GODOT_STEAM_VERSION=godot4
 RUN echo "Cloning Godot repository ..."
 RUN git clone -b $GODOT_VERSION https://github.com/godotengine/godot.git /godot_setup/godot
 RUN echo "Cloning GodotSteam repository ..."
-RUN git clone -b $GODOT_STEAM_VERSION https://github.com/Gramps/GodotSteam.git /godot_setup/godot/modules/godotsteam
+RUN git clone -b $GODOT_STEAM_VERSION https://codeberg.org/godotsteam/godotsteam.git /godot_setup/godot/modules/godotsteam
 
 # Copy Steam redistributables
 COPY steam_sdk/sdk/public /godot_setup/godot/modules/godotsteam/sdk/public
