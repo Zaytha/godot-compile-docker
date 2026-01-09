@@ -2,8 +2,11 @@ FROM ubuntu:22.04
 
 RUN apt-get update && apt-get install -y git openssl
 
-ARG GODOT_VERSION=4.4-stable
-ARG GODOT_STEAM_VERSION=godot4
+ARG GODOT_VERSION
+ARG GODOT_STEAM_VERSION
+
+RUN echo "Using GODOT_VERSION: $GODOT_VERSION"
+RUN echo "Using GODOT_STEAM_VERSION: %GODOT_STEAM_VERSION"
 
 # Clone godot and godotsteam repositories
 RUN echo "Cloning Godot repository ..."
