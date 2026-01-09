@@ -19,7 +19,7 @@ echo Docker is running.
 echo ------------------------------
 
 REM Prompt for Godot and GodotSteam version with defaults
-set "GODOT_VERSION_DEFAULT=4.5-stable"
+set "GODOT_VERSION_DEFAULT=4.5.1-stable"
 echo What version of Godot would you like to use? (https://github.com/godotengine/godot)
 set /p GODOT_VERSION=Enter your version or press enter to use the default (%GODOT_VERSION_DEFAULT%):
 if "%GODOT_VERSION%"=="" set "GODOT_VERSION=%GODOT_VERSION_DEFAULT%"
@@ -74,14 +74,12 @@ echo Steam SDK Version .................................... %SDK_VERSION%
 echo Docker ............................................... RUNNING
 pause
 
-
-REM Begin the build process
+REM there's still an issue here /w needed to click on the cmd window after they're build to get them to work aaaaaa
 echo ------------------------------ [2/4] Setting up Build Enviorment ------------------------------
-docker-compose up --build --abort-on-container-exit --exit-code-from setup setup
+docker-compose up --build setup setup
 
 echo ---------------------------------- [3/4] Starting Linux Build ---------------------------------
-REM run the dockerfile for linux build
-docker-compose up --build --abort-on-container-exit --exit-code-from linux_build linux_build
+docker-compose up --build linux_build linux_build
 echo -------------------------------------- Linux Build Finished -------------------------------------
 
 
@@ -91,6 +89,8 @@ set /p SCRIPT_AES256_ENCRYPTION_KEY=<godot_data\godot.gdkey
 
 REM Go into folder and build
 cd godot_data\godot
+REM Do patch for the d3d12 idk man just following the docs https://docs.godotengine.org/en/latest/engine_details/development/compiling/compiling_for_windows.html#doc-compiling-for-windows-installing-d3d12-requirements
+python misc/scripts/install_d3d12_sdk_windows.py
 scons platform=windows tools=yes target=editor
 scons platform=windows tools=no target=template_debug
 scons platform=windows tools=no target=template_release production=yes
@@ -99,7 +99,6 @@ xcopy /Y /E "modules\godotsteam\sdk\redistributable_bin\win64\*" "bin\"
 
 
 echo -------------------------------------- All Builds Finished --------------------------------------
-echo .
 echo "Files are located in the godot_data\godot\bin folder."
 start "" "bin"
 pause

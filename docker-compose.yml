@@ -9,12 +9,10 @@ services:
     volumes:
       - ./godot_data:/godot_data
       - ./steam_sdk:/steam_sdk:ro
-    command: ["/bin/sh", "-c", "cp -r /godot_setup/. /godot_data/"]
+    command: ["/bin/sh", "-c", "cp -r /godot_setup/. /godot_data/ && echo 'Copy complete'"]
 
   linux_build:
     build: ./build_files/linux_build
-    depends_on:
-      - setup
     volumes:
       - ./godot_data:/godot_data
     working_dir: /godot_data/godot
