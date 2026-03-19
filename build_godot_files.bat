@@ -91,9 +91,9 @@ REM Go into folder and build
 cd godot_data\godot
 REM Do patch for the d3d12 idk man just following the docs https://docs.godotengine.org/en/latest/engine_details/development/compiling/compiling_for_windows.html#doc-compiling-for-windows-installing-d3d12-requirements
 python misc/scripts/install_d3d12_sdk_windows.py
-scons platform=windows tools=yes target=editor
-scons platform=windows tools=no target=template_debug
-scons platform=windows tools=no target=template_release production=yes
+scons platform=windows tools=yes target=editor d3d12=yes
+scons platform=windows tools=no target=template_debug d3d12=yes
+scons platform=windows tools=no target=template_release production=yes d3d12=yes
 REM Copy Steam shared library for Windows to bin
 xcopy /Y /E "modules\godotsteam\sdk\redistributable_bin\win64\*" "bin\"
 
