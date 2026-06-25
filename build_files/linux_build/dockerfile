@@ -1,11 +1,9 @@
-FROM ubuntu:20.04
-# Ubuntu 20.04 EOL 31/05/2025
-# At the time of writing this is past that date, so you may need to update it in the future.
+FROM ubuntu:26.04
+# Ubuntu 26.04 EOL 2031/05/01
 
 # disable popups on install
 ARG DEBIAN_FRONTEND=noninteractive
 
-# install scons through pip, as the ubuntu repositories only have 3.1.2, and godot 4.4 needs 4.0+
 RUN apt-get update && apt-get install -y \
   build-essential \
   python3 \
@@ -22,9 +20,7 @@ RUN apt-get update && apt-get install -y \
   libudev-dev \
   libxi-dev \
   libxrandr-dev \
-  libwayland-dev \
-  libwayland-dev && \
-  pip3 install --upgrade scons
+  libwayland-dev
 
 ## expoting the encyrption key sets it as an environment variable for scons
 ## scons commands export the editor, debug template, and release template
